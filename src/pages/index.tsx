@@ -1,11 +1,10 @@
 import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
-import { Cart } from "../components/commerce-layer"
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <div>
-      <Cart />
+      home
     </div>
   )
 }
