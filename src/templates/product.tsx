@@ -83,49 +83,53 @@ const ProductPage: FC<ProductPageProps> = ({
       <div className="flex gap-4 justify-center">
         <MediaCarousel media={carouselMedia} />
 
-        <div className="flex flex-col gap-2">
-          <div className="prose pb-4">
+        <div className="flex flex-col gap-4">
+          <div className="prose">
             <h3>
               {product?.name}
             </h3>
             {/* {renderRichText(contentfulProduct?.description)} */}
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center justify-between">
             <h3>Colors:</h3>
-            {availableColors.filter(Boolean).map((color) => (
-              <Link to={getLinkToVariantForColor(color!) ?? "#"} key={color}>
-                <button
-                  style={{ backgroundColor: color ?? undefined }}
-                  className={`rounded-md border border-4 w-6 h-6 ${
-                    variant?.color === color ? "border-accent" : ""
-                  }`}
-                />
-              </Link>
-            ))}
+            <div className="flex gap-2">
+              {availableColors.filter(Boolean).map((color) => (
+                <Link to={getLinkToVariantForColor(color!) ?? "#"} key={color}>
+                  <button
+                    style={{ backgroundColor: color ?? undefined }}
+                    className={`btn btn-sm rounded-md border border-4 w-6 h-6 ${
+                      variant?.color === color ? "border-accent" : ""
+                    }`}
+                  />
+                </Link>
+              ))}
+            </div>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center justify-between">
             <h3>Size:</h3>
-            {availableSizes.filter(Boolean).map((size) => {
-              const isDisabled = !isSizeVariantAvailableForColor(size!);
-              return (
-                <Link key={size} to={getLinkToVariantForSize(size!) ?? "#"}>
-                  <button
-                    disabled={isDisabled}
-                    title={isDisabled ? "not available" : `select ${size}`}
-                    className={`mx-1 rounded-md border border-4 ${
-                      variant?.size?.label === size ? "border-accent" : "border-neutral"
-                    } ${isDisabled ? "opacity-40" : ""}`}
-                  >
-                    {size}
-                  </button>
-                </Link>
-              );
-            })}
+            <div className="flex gap-2">
+              {availableSizes.filter(Boolean).map((size) => {
+                const isDisabled = !isSizeVariantAvailableForColor(size!);
+                return (
+                  <Link key={size} to={getLinkToVariantForSize(size!) ?? "#"}>
+                    <button
+                      disabled={isDisabled}
+                      title={isDisabled ? "not available" : `select ${size}`}
+                      className={`btn btn-md mx-1 rounded-md border border-4 ${
+                        variant?.size?.label === size ? "border-accent" : "border-neutral"
+                      } ${isDisabled ? "opacity-40 cursor-not-allowed" : ""}`}
+                    >
+                      {size}
+                    </button>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
       
-          <div>{variant?.sku && <AddToCart sku={variant.sku} />}</div>
+          <div className="mt-8">{variant?.sku && <AddToCart sku={variant.sku} />}</div>
         </div>
       </div>
     </MainLayout>
