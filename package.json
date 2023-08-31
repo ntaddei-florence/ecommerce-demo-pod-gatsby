@@ -18,6 +18,9 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.1",
+    "@commercelayer/js-auth": "^4.1.1",
+    "@commercelayer/react-components": "^4.4.4",
+    "@contentful/rich-text-react-renderer": "^15.17.1",
     "@heroicons/react": "^2.0.18",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.15",
