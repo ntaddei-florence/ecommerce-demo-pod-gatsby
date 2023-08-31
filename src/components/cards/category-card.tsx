@@ -1,7 +1,7 @@
 import { Link, graphql } from "gatsby";
 import React, { FC } from "react";
 
-import { BasicCard } from ".";
+import { BasicCard } from "./basic-card";
 
 export interface CategoryCardProps {
   category: Queries.CategoryCardDataFragment;
@@ -33,12 +33,7 @@ export const query = graphql`
       raw
     }
     image {
-      url
-      title
-      description
-      width
-      height
-      size
+      ...ContentfulImageData
     }
     # parentCategory {
     #   slug

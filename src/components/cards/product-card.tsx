@@ -1,21 +1,15 @@
-import { Link } from "gatsby";
+import { Link, graphql } from "gatsby";
 import React, { FC } from "react";
-
-import { BasicCard } from ".";
-import { graphql } from "gatsby";
+import { BasicCard } from "./basic-card";
 
 export interface ProductCardProps {
   product: Queries.ProductCardDataFragment;
 }
 
 export const ProductCard: FC<ProductCardProps> = ({ product }) => {
-  // const defaultMediaImage = product.defaultMedia?.mediaCollection?.items[0];
-  // const firstVariant = product.variants?.[0];
-  // const firstVariantImage = firstVariant?.media?.mediaCollection?.items[0];
-  // const headerImage = firstVariantImage ?? defaultMediaImage ?? undefined;
   return (
     <BasicCard
-      // image={headerImage}
+      // image={product.image}
       title={product.name}
       // body={renderRichText(product.description?.json)}
       actions={
@@ -33,6 +27,9 @@ export const query = graphql`
   fragment ProductCardData on ContentfulProduct {
     name
     slug
+    # image {
+    #   ...ContentfulImageData
+    # }
     variants {
       sku
       slug

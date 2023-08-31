@@ -1,8 +1,7 @@
 import { graphql, HeadProps, PageProps } from "gatsby";
 import React, { FC } from "react";
-import { AddToCart } from "../components/commerce-layer/add-to-cart";
 import { MainLayout } from "../components/layouts/main-layout";
-import { CategoryCard } from "../components/cards";
+import { CategoryCard } from "../components/cards/category-card";
 
 export interface CategoriesPageContext {
   slug: string;
