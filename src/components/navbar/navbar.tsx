@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import { Link } from 'gatsby';
+import { Link } from "gatsby";
 
 import { ShoppingCartDropdown } from "./shopping-cart-dropdown";
 import { UserProfileDropdown } from "./user-profile-dropdown";
 
 export interface NavbarProps {}
 
-export const Navbar: FC<NavbarProps> = ({}) => {
+export const Navbar: FC<NavbarProps> = () => {
   return (
     <div className="navbar bg-neutral text-neutral-content">
       <div className="flex-1">

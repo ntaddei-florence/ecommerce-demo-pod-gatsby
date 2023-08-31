@@ -7,15 +7,13 @@ import { Link } from "gatsby";
 
 export interface UserProfileDropdownProps {}
 
-export const UserProfileDropdown: FC<UserProfileDropdownProps> = ({}) => {
+export const UserProfileDropdown: FC<UserProfileDropdownProps> = () => {
   const { user } = useAuth0();
-
   return (
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          {
-          user?.picture
+          {user?.picture
             ? (
               <img
                 src={user.picture}

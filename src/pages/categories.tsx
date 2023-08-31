@@ -18,10 +18,13 @@ export async function getServerData() {
       clToken: (await getCLToken()).accessToken,
     }, // Will be passed to the page component as "serverData" prop
     headers: {}, // HTTP response headers for this page
-  }
+  };
 }
 
-const CategoriesPage: FC<CategoriesPageProps> = ({ data: { allContentfulCategory }, serverData: { clToken } }) => {
+const CategoriesPage: FC<CategoriesPageProps> = ({
+  data: { allContentfulCategory },
+  serverData: { clToken },
+}) => {
   return (
     <MainLayout clToken={clToken}>
       <div>
@@ -39,9 +42,9 @@ const CategoriesPage: FC<CategoriesPageProps> = ({ data: { allContentfulCategory
   );
 };
 
-export const Head: FC<HeadProps<Queries.CategoriesPageQuery, CategoriesPageContext>> = () => {
-  return <title>Categories</title>;
-};
+export const Head: FC<HeadProps<Queries.CategoriesPageQuery, CategoriesPageContext>> = () => (
+  <title>Categories</title>
+);
 
 export const query = graphql`
   query CategoriesPage {
