@@ -33,7 +33,7 @@ export const query = graphql`
     slug
     defaultMedia {
       media {
-        ...ContentfulImageData
+        ...BasicCardImageData
       }
     }
     variants {
@@ -41,7 +41,7 @@ export const query = graphql`
       slug
       media {
         media {
-          ...ContentfulImageData
+          ...BasicCardImageData
         }
       }
     }

@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import { AddToCart } from "../components/commerce-layer/add-to-cart";
 import { MainLayout } from "../components/layouts/main-layout";
 import { getCLToken } from "../components/commerce-layer/cl-token";
+import { MediaCarousel } from "../components/media-carousel";
 
 export interface ProductPageContext {
   slug: string;
@@ -25,16 +26,24 @@ export const getServerData: GetServerData<ServerDataProps> = async () => {
 
 const ProductPage: FC<ProductPageProps> = ({ data: { contentfulProduct }, serverData: { clToken } }) => {
   const variant = contentfulProduct?.variants?.[0];
-
+  const carouselMedia = (variant?.media?.media ?? contentfulProduct?.defaultMedia?.media ?? [])
+    .filter(Boolean) as Queries.MediaCarouselImageDataFragment[];
   return (
     <MainLayout clToken={clToken}>
-      <div className="prose pb-4">
-        <h3>
-          {contentfulProduct?.name}
-        </h3>
-        {/* {renderRichText(contentfulProduct?.description)} */}
+      <div className="flex gap-4 justify-center">
+        <MediaCarousel media={carouselMedia} />
+
+        <div>
+          <div className="prose pb-4">
+            <h3>
+              {contentfulProduct?.name}
+            </h3>
+            {/* {renderRichText(contentfulProduct?.description)} */}
+          </div>
+      
+          {variant?.sku && <AddToCart sku={variant.sku} />}
+        </div>
       </div>
-      {variant?.sku && <AddToCart sku={variant.sku} />}
     </MainLayout>
   );
 };
@@ -58,12 +67,19 @@ export const query = graphql`
         raw
       }
       slug
+      defaultMedia {
+        media {
+          ...MediaCarouselImageData
+        }
+      }
       variants {
         sku
-        size {
-          label
+        slug
+        media {
+          media {
+            ...MediaCarouselImageData
+          }
         }
-        color
       }
     }
   }

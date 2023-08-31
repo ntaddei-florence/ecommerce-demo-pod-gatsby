@@ -33,7 +33,7 @@ export const query = graphql`
       raw
     }
     image {
-      ...ContentfulImageData
+      ...BasicCardImageData
     }
     # parentCategory {
     #   slug
