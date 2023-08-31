@@ -1,6 +1,6 @@
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import React, { FC } from "react";
-import { Link } from 'gatsby';
+import { Link } from "gatsby";
 
 import { CartCounter } from "./cart-counter";
 import { formatAmountWithCurrency } from "../../utils/currency";

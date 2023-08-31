@@ -1,4 +1,8 @@
-import { CommerceLayer, OrderContainer, OrderStorage } from "@commercelayer/react-components";
+import {
+  CommerceLayer,
+  OrderContainer,
+  OrderStorage,
+} from "@commercelayer/react-components";
 import React, { FC, PropsWithChildren } from "react";
 
 import { CL_PERSIST_KEY } from "./constants";
@@ -9,10 +13,9 @@ export interface CommerceLayerProviderProps {
   accessToken: string;
 }
 
-export const CommerceLayerProvider: FC<PropsWithChildren<CommerceLayerProviderProps>> = ({
-  children,
-  accessToken,
-}) => {
+export const CommerceLayerProvider: FC<
+  PropsWithChildren<CommerceLayerProviderProps>
+> = ({ children, accessToken }) => {
   if (!accessToken) return children;
 
   return (

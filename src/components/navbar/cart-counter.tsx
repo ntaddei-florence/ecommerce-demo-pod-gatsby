@@ -1,4 +1,7 @@
-import { LineItemsContainer, LineItemsCount } from "@commercelayer/react-components";
+import {
+  LineItemsContainer,
+  LineItemsCount,
+} from "@commercelayer/react-components";
 import React from "react";
 
 export const CartCounter = () => {
