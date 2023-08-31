@@ -1,5 +1,3 @@
-"use client";
-
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import React, { FC } from "react";
 import { Link } from 'gatsby';

@@ -1,5 +1,3 @@
-"use client";
-
 import { graphql } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import React, { FC, useState } from "react";
