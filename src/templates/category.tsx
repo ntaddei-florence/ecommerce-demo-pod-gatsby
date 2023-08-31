@@ -1,18 +1,31 @@
-import { graphql, HeadProps, PageProps } from "gatsby";
+import { GetServerData, graphql, HeadProps, PageProps } from "gatsby";
 import React, { FC } from "react";
 import { MainLayout } from "../components/layouts/main-layout";
 import { ProductCard } from "../components/cards/product-card";
+import { getCLToken } from "../components/commerce-layer/cl-token";
 
 export interface CategoryPageContext {
   slug: string;
 }
 
-export interface CategoryPageProps
-  extends PageProps<Queries.CategoryPageQuery, CategoryPageContext> {}
+interface ServerDataProps { clToken: string };
 
-const CategoryPage: FC<CategoryPageProps> = ({ data: { contentfulCategory } }) => {
+export interface CategoryPageProps
+  extends PageProps<Queries.CategoryPageQuery, CategoryPageContext, {}, ServerDataProps> {}
+
+export const getServerData: GetServerData<ServerDataProps> = async () => {
+  return {
+    status: 200, // The HTTP status code that should be returned
+    props: {
+      clToken: (await getCLToken()).accessToken,
+    }, // Will be passed to the page component as "serverData" prop
+    headers: {}, // HTTP response headers for this page
+  }
+}
+
+const CategoryPage: FC<CategoryPageProps> = ({ data: { contentfulCategory }, serverData: { clToken } }) => {
   return (
-    <MainLayout>
+    <MainLayout clToken={clToken}>
       <div className="prose pb-4">
         <h2>{contentfulCategory?.categoryName}</h2>
       </div>

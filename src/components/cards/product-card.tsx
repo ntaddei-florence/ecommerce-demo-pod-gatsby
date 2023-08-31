@@ -7,9 +7,13 @@ export interface ProductCardProps {
 }
 
 export const ProductCard: FC<ProductCardProps> = ({ product }) => {
+  const firstVariant = product.variants?.filter(v => v?.media?.media)[0];
+  const firstVariantImage = firstVariant?.media?.media?.[0];
+  const firstProductImage = product.defaultMedia?.media?.[0];
+  const productImage = firstProductImage ?? firstVariantImage;
   return (
     <BasicCard
-      // image={product.image}
+      image={productImage}
       title={product.name}
       // body={renderRichText(product.description?.json)}
       actions={
@@ -27,12 +31,19 @@ export const query = graphql`
   fragment ProductCardData on ContentfulProduct {
     name
     slug
-    # image {
-    #   ...ContentfulImageData
-    # }
+    defaultMedia {
+      media {
+        ...ContentfulImageData
+      }
+    }
     variants {
       sku
       slug
+      media {
+        media {
+          ...ContentfulImageData
+        }
+      }
     }
   }
 `

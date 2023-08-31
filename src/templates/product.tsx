@@ -1,20 +1,33 @@
-import { graphql, HeadProps, PageProps } from "gatsby";
+import { GetServerData, graphql, HeadProps, PageProps } from "gatsby";
 import React, { FC } from "react";
 import { AddToCart } from "../components/commerce-layer/add-to-cart";
 import { MainLayout } from "../components/layouts/main-layout";
+import { getCLToken } from "../components/commerce-layer/cl-token";
 
 export interface ProductPageContext {
   slug: string;
 }
 
-export interface ProductPageProps
-  extends PageProps<Queries.ProductPageQuery, ProductPageContext> {}
+interface ServerDataProps { clToken: string };
 
-const ProductPage: FC<ProductPageProps> = ({ data: { contentfulProduct } }) => {
+export interface ProductPageProps
+  extends PageProps<Queries.ProductPageQuery, ProductPageContext, {}, ServerDataProps> {}
+
+export const getServerData: GetServerData<ServerDataProps> = async () => {
+  return {
+    status: 200, // The HTTP status code that should be returned
+    props: {
+      clToken: (await getCLToken()).accessToken,
+    }, // Will be passed to the page component as "serverData" prop
+    headers: {}, // HTTP response headers for this page
+  }
+}
+
+const ProductPage: FC<ProductPageProps> = ({ data: { contentfulProduct }, serverData: { clToken } }) => {
   const variant = contentfulProduct?.variants?.[0];
 
   return (
-    <MainLayout>
+    <MainLayout clToken={clToken}>
       <div className="prose pb-4">
         <h3>
           {contentfulProduct?.name}

@@ -1,34 +1,34 @@
 import { GatsbyNode } from "gatsby";
 import path from "path";
 
-// import { SchemaGenerator } from "./graphql/SchemaGenerator";
+import { SchemaGenerator } from "./graphql/SchemaGenerator";
 
-// export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] = async ({
-//   actions,
-// }) => {
-//   const { createTypes } = actions;
+export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] = async ({
+  actions,
+}) => {
+  const { createTypes } = actions;
 
-//   const baseDir = "graphql";
-//   const spaceId = process.env.CONTENTFUL_SPACE_ID;
-//   const environmentId = process.env.CONTENTFUL_ENVIRONMENT_ID ?? "master";
-//   const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN ?? "";
+  const baseDir = "graphql";
+  const spaceId = process.env.CONTENTFUL_SPACE_ID;
+  const environmentId = process.env.CONTENTFUL_ENVIRONMENT_ID ?? "master";
+  const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN ?? "";
 
-//   const baseUrl = `https://${process.env.CONTENTFUL_HOST ?? "cdn.contentful.com"}`;
-//   const queryParams = new URLSearchParams({
-//     access_token: accessToken,
-//     limit: "1000",
-//   });
-//   const url = `${baseUrl}/spaces/${spaceId}/environments/${environmentId}/content_types?${queryParams}`;
+  const baseUrl = `https://${process.env.CONTENTFUL_HOST ?? "cdn.contentful.com"}`;
+  const queryParams = new URLSearchParams({
+    access_token: accessToken,
+    limit: "1000",
+  });
+  const url = `${baseUrl}/spaces/${spaceId}/environments/${environmentId}/content_types?${queryParams}`;
 
-//   const generator = new SchemaGenerator({
-//     url,
-//     baseDir,
-//     isVerbose: false,
-//   });
+  const generator = new SchemaGenerator({
+    url,
+    baseDir,
+    isVerbose: false,
+  });
 
-//   const schema = await generator.getSchema();
-//   createTypes(schema);
-// };
+  const schema = await generator.getSchema();
+  createTypes(schema);
+};
 
 export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
   const { createPage } = actions;
