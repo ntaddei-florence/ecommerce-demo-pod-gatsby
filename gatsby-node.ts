@@ -34,10 +34,16 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions 
   const { createPage } = actions;
 
   const productPagePath = path.resolve("./src/templates/product.tsx");
+  const categoryPagePath = path.resolve("./src/templates/category.tsx");
 
   const result = await graphql<Queries.PagesQuery>(`
     query Pages {
       allContentfulProduct {
+        nodes {
+          slug
+        }
+      }
+      allContentfulCategory {
         nodes {
           slug
         }
@@ -50,7 +56,6 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions 
   }
 
   const productPages = result?.data?.allContentfulProduct.nodes ?? [];
-
   productPages.forEach((node) => {
     const { slug } = node;
     const path = `/products/${slug}`;
@@ -58,6 +63,21 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions 
     createPage({
       path,
       component: productPagePath,
+      context: {
+        slug,
+      },
+    });
+  });
+
+   const categoryPages = result?.data?.allContentfulCategory.nodes ?? [];
+
+  categoryPages.forEach((node) => {
+    const { slug } = node;
+    const path = `/categories/${slug}`;
+    console.info("Creating page for path", path);
+    createPage({
+      path,
+      component: categoryPagePath,
       context: {
         slug,
       },

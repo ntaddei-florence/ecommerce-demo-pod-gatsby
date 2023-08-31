@@ -1,5 +1,7 @@
 import { graphql, HeadProps, PageProps } from "gatsby";
 import React, { FC } from "react";
+import { AddToCart } from "../components/commerce-layer/add-to-cart";
+import { MainLayout } from "../components/layouts/main-layout";
 
 export interface ProductPageContext {
   slug: string;
@@ -8,18 +10,30 @@ export interface ProductPageContext {
 export interface ProductPageProps
   extends PageProps<Queries.ProductPageQuery, ProductPageContext> {}
 
-const ProductPage: FC<ProductPageProps> = ({ data }) => {
+const ProductPage: FC<ProductPageProps> = ({ data: { contentfulProduct } }) => {
+  const variant = contentfulProduct?.variants?.[0];
+
   return (
-    <pre>{JSON.stringify(data, null, 2)}</pre>
+    <MainLayout>
+      <div className="prose pb-4">
+        <h3>
+          {contentfulProduct?.name}
+        </h3>
+        {/* {renderRichText(contentfulProduct?.description)} */}
+      </div>
+      {variant?.sku && <AddToCart sku={variant.sku} />}
+    </MainLayout>
   );
 };
 
 export const Head: FC<HeadProps<Queries.ProductPageQuery, ProductPageContext>> = ({
-  data,
+  data: { contentfulProduct },
   // pageContext: { slug },
 }) => {
   return (
-    <pre>{JSON.stringify(data, null, 2)}</pre>
+    <div>
+      {contentfulProduct?.name}
+    </div>
   );
 };
 
