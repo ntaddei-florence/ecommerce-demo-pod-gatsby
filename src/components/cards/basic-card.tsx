@@ -30,7 +30,7 @@ export const BasicCard: FC<BasicCardProps> = ({ image, title, body, actions }) =
 
 export const query = graphql`
   fragment BasicCardImageData on ContentfulAsset {
-    gatsbyImageData(width: 200)
+    gatsbyImageData(height: 200)
     contentful_id
     publicUrl
     url
