@@ -1,5 +1,6 @@
 import { GetServerData, graphql, HeadProps, PageProps, Link } from "gatsby";
-import React, { FC, useEffect } from "react";
+import { renderRichText } from 'gatsby-source-contentful/rich-text'
+import React, { FC } from "react";
 import { AddToCart } from "../components/commerce-layer/add-to-cart";
 import { MainLayout } from "../components/layouts/main-layout";
 import { getCLToken } from "../components/commerce-layer/cl-token";
@@ -88,7 +89,7 @@ const ProductPage: FC<ProductPageProps> = ({
             <h3>
               {product?.name}
             </h3>
-            {/* {renderRichText(contentfulProduct?.description)} */}
+            {product?.description && renderRichText(product?.description)}
           </div>
 
           <div className="flex gap-2 items-center justify-between">
