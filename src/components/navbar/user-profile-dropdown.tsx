@@ -5,7 +5,7 @@ export interface UserProfileDropdownProps {}
 export const UserProfileDropdown: FC<UserProfileDropdownProps> = ({}) => {
   return (
     <div className="dropdown dropdown-end">
-      <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+      <label tabIndex={0} className="btn btn-ghost btn-circle border border-base-200 border-2 avatar">
         <div className="w-10 rounded-full">
           <img
             src="http://placekitten.com/g/200/300"
