@@ -139,13 +139,8 @@ const ProductPage: FC<ProductPageProps> = ({
 
 export const Head: FC<HeadProps<Queries.ProductPageQuery, ProductPageContext>> = ({
   data: { contentfulProduct },
-  // pageContext: { slug },
 }) => {
-  return (
-    <div>
-      {contentfulProduct?.name}
-    </div>
-  );
+  return <title>{contentfulProduct?.name}</title>;
 };
 
 export const query = graphql`

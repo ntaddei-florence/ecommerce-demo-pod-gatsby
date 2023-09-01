@@ -1,8 +1,13 @@
 import React, { FC } from "react";
+import LoginButton from "../auth/login-button";
+import { useAuth0 } from "@auth0/auth0-react";
+import { LogoutButton } from "../auth/logout-button";
 
 export interface UserProfileDropdownProps {}
 
 export const UserProfileDropdown: FC<UserProfileDropdownProps> = ({}) => {
+  const { user } = useAuth0();
+
   return (
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle border border-base-200 border-2 avatar">
@@ -15,23 +20,32 @@ export const UserProfileDropdown: FC<UserProfileDropdownProps> = ({}) => {
           />
         </div>
       </label>
+      
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
       >
-        <li>
-          <a className="justify-between">
-            Profile
-            <span className="badge">New</span>
-          </a>
-        </li>
-        <li>
-          <a>Settings</a>
-        </li>
-        <li>
-          <a>Logout</a>
-        </li>
-      </ul>
+        {
+          user ? <>
+            <li>
+              <a className="justify-between">
+                Profile
+                <span className="badge">New</span>
+              </a>
+            </li>
+            <li>
+              <a>Settings</a>
+            </li>
+            <li className="pt-2">
+                <LogoutButton />
+            </li>  
+          </> : (
+            <div>
+              <LoginButton />
+            </div>
+          )
+        }
+      </ul> 
     </div>
   );
 };
