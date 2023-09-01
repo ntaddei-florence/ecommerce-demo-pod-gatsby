@@ -1,8 +1,8 @@
 {
-  "name": "e-commerce-demo-pod",
+  "name": "ecommerce-demo-pod",
   "version": "1.0.0",
   "private": true,
-  "description": "e-commerce-demo-pod",
+  "description": "ecommerce-demo-pod",
   "author": "fabiofognani",
   "keywords": [
     "gatsby"
