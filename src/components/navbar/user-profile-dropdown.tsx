@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import LoginButton from "../auth/login-button";
 import { useAuth0 } from "@auth0/auth0-react";
 import { LogoutButton } from "../auth/logout-button";
+import { Link } from "gatsby";
 
 export interface UserProfileDropdownProps {}
 
@@ -28,10 +29,9 @@ export const UserProfileDropdown: FC<UserProfileDropdownProps> = ({}) => {
         {
           user ? <>
             <li>
-              <a className="justify-between">
+              <Link to="/account">
                 Profile
-                <span className="badge">New</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a>Settings</a>
