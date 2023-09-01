@@ -1,4 +1,5 @@
 import React, { FC, PropsWithChildren } from "react";
+
 import { CommerceLayerProvider } from "../commerce-layer";
 import { Navbar } from "../navbar";
 import { Footer } from "../footer";
@@ -9,12 +10,12 @@ export interface MainLayoutProps {
 
 export const MainLayout: FC<PropsWithChildren<MainLayoutProps>> = ({ children, clToken }) => {
   return (
-      <CommerceLayerProvider accessToken={clToken}>
-        <Navbar />
-        <main className="min-h-screen container mx-auto py-8">
-          {children}
-        </main>
-        <Footer />
-      </CommerceLayerProvider>
+    <CommerceLayerProvider accessToken={clToken}>
+      <Navbar />
+      <main className="min-h-screen container mx-auto py-8">
+        {children}
+      </main>
+      <Footer />
+    </CommerceLayerProvider>
   )
 }

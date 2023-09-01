@@ -10,11 +10,11 @@ export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] 
   const { createTypes } = actions;
 
   const baseDir = "graphql";
-  const spaceId = process.env.CONTENTFUL_SPACE_ID;
-  const environmentId = process.env.CONTENTFUL_ENVIRONMENT_ID ?? "master";
-  const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN ?? "";
+  const spaceId = process.env.GATSBY_CONTENTFUL_SPACE_ID;
+  const environmentId = process.env.GATSBY_CONTENTFUL_ENVIRONMENT_ID ?? "master";
+  const accessToken = process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN ?? "";
 
-  const baseUrl = `https://${process.env.CONTENTFUL_HOST ?? "cdn.contentful.com"}`;
+  const baseUrl = `https://${process.env.GATSBY_CONTENTFUL_HOST ?? "cdn.contentful.com"}`;
   const queryParams = new URLSearchParams({
     access_token: accessToken,
     limit: "1000",
@@ -81,7 +81,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions 
     });
   });
 
-   const categoryPages = result?.data?.allContentfulCategory.nodes ?? [];
+  const categoryPages = result?.data?.allContentfulCategory.nodes ?? [];
 
   categoryPages.forEach((node) => {
     const { slug } = node;

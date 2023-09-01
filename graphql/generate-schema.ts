@@ -11,11 +11,12 @@ require("dotenv").config({
   const baseDir = "graphql";
   const generatedDir = path.join(baseDir, "generated");
 
-  const spaceId = process.env.CONTENTFUL_SPACE_ID;
-  const environmentId = process.env.CONTENTFUL_ENVIRONMENT_ID;
-  const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN ?? "";
+  const spaceId = process.env.GATSBY_CONTENTFUL_SPACE_ID;
+  const environmentId = process.env.GATSBY_CONTENTFUL_ENVIRONMENT_ID ?? "master";
+  const accessToken = process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN ?? "";
 
-  const baseUrl = process.env.CONTENTFUL_HOST ?? "https://cdn.contentful.com";
+  const baseUrl = process.env.GATSBY_CONTENTFUL_HOST ?? "https://cdn.contentful.com";
+
   const queryParams = new URLSearchParams({
     access_token: accessToken,
     limit: "1000",

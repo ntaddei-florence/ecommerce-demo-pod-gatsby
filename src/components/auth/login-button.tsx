@@ -8,7 +8,16 @@ function LoginButton() {
   } = useAuth0();
 
   return !isAuthenticated && (
-    <button className="btn w-full" onClick={() => loginWithRedirect()}>Log in</button>
+    <button
+      className="btn w-full"
+      onClick={() => loginWithRedirect({
+        appState: {
+          returnTo: window.location.origin,
+        }
+      })}
+    >
+      Log in
+    </button>
   );
 };
 
