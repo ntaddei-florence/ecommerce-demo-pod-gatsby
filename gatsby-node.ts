@@ -31,7 +31,7 @@ export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] 
 };
 
 export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions }) => {
-  const { createPage } = actions;
+  const { createPage, createRedirect } = actions;
 
   const productPagePath = path.resolve("./src/templates/product.tsx");
   const categoryPagePath = path.resolve("./src/templates/category.tsx");
@@ -41,6 +41,9 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions 
       allContentfulProduct {
         nodes {
           slug
+          variants {
+            sku
+          }
         }
       }
       allContentfulCategory {
@@ -57,15 +60,22 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions 
 
   const productPages = result?.data?.allContentfulProduct.nodes ?? [];
   productPages.forEach((node) => {
-    const { slug } = node;
-    const path = `/products/${slug}`;
-    console.info("Creating page for path", path);
-    createPage({
-      path,
-      component: productPagePath,
-      context: {
-        slug,
-      },
+    const { slug, variants } = node;
+    variants?.forEach(v => {
+      const path = `/products/${slug}/${v?.sku}`;
+      console.info("Creating page for path", path);
+      createPage({
+        path,
+        component: productPagePath,
+        context: {
+          slug,
+          sku: v?.sku,
+        },
+      });
+      createRedirect({
+        fromPath: `/products/${slug}`,
+        toPath: `/products/${slug}/${variants[0]?.sku}`,
+      });
     });
   });
 

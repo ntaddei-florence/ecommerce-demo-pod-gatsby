@@ -8,7 +8,7 @@ export interface NavbarProps {}
 
 export const Navbar: FC<NavbarProps> = ({}) => {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-neutral text-neutral-content">
       <div className="flex-1">
         {/* Logo */}
         <Link to="/" className="btn btn-ghost normal-case text-xl">

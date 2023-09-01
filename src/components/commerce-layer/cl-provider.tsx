@@ -1,5 +1,3 @@
-"use client";
-
 import { CommerceLayer, OrderContainer, OrderStorage } from "@commercelayer/react-components";
 import React, { FC, PropsWithChildren } from "react";
 

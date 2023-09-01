@@ -3,7 +3,7 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import React, { FC, ReactNode } from "react";
 
 export interface BasicCardProps {
-  image?: Queries.ContentfulImageDataFragment | null;
+  image?: Queries.BasicCardImageDataFragment | null;
   title: ReactNode | string;
   body?: ReactNode | string;
   actions?: ReactNode;
@@ -13,12 +13,10 @@ export const BasicCard: FC<BasicCardProps> = ({ image, title, body, actions }) =
   return (
     <div className="card card-compact min-w-32 bg-base-100 shadow-xl">
       {image?.gatsbyImageData && (
-        <figure>
-          <GatsbyImage
-            image={image.gatsbyImageData}
-            alt={title?.toString() ?? ""}
-          />
-        </figure>
+        <GatsbyImage
+          image={image.gatsbyImageData}
+          alt={title?.toString() ?? ""}
+        />
       )}
       <div className="card-body">
         <h2 className="card-title">{title}</h2>
@@ -31,8 +29,8 @@ export const BasicCard: FC<BasicCardProps> = ({ image, title, body, actions }) =
 
 
 export const query = graphql`
-  fragment ContentfulImageData on ContentfulAsset {
-    gatsbyImageData
+  fragment BasicCardImageData on ContentfulAsset {
+    gatsbyImageData(height: 200)
     contentful_id
     publicUrl
     url

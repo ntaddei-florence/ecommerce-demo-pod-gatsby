@@ -1,6 +1,7 @@
 import React, { FC, PropsWithChildren } from "react";
 import { CommerceLayerProvider } from "../commerce-layer";
 import { Navbar } from "../navbar";
+import { Footer } from "../footer";
 
 export interface MainLayoutProps {
   clToken: string;
@@ -13,6 +14,7 @@ export const MainLayout: FC<PropsWithChildren<MainLayoutProps>> = ({ children, c
         <main className="min-h-screen container mx-auto py-8">
           {children}
         </main>
+        <Footer />
       </CommerceLayerProvider>
   )
 }

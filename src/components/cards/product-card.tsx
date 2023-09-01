@@ -1,6 +1,7 @@
 import { Link, graphql } from "gatsby";
 import React, { FC } from "react";
 import { BasicCard } from "./basic-card";
+import { renderRichText } from "gatsby-source-contentful/rich-text";
 
 export interface ProductCardProps {
   product: Queries.ProductCardDataFragment;
@@ -15,10 +16,10 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
     <BasicCard
       image={productImage}
       title={product.name}
-      // body={renderRichText(product.description?.json)}
+      body={product.description ? renderRichText(product.description) : undefined}
       actions={
         <>
-          <Link to={`/products/${product.slug}`} className="btn btn-sm btn-outline">
+          <Link to={`/products/${product.slug}/${firstVariant?.sku}`} className="btn btn-sm btn-outline">
             Vedi varianti
           </Link>
         </>
@@ -31,9 +32,12 @@ export const query = graphql`
   fragment ProductCardData on ContentfulProduct {
     name
     slug
+    description {
+      raw
+    }
     defaultMedia {
       media {
-        ...ContentfulImageData
+        ...BasicCardImageData
       }
     }
     variants {
@@ -41,7 +45,7 @@ export const query = graphql`
       slug
       media {
         media {
-          ...ContentfulImageData
+          ...BasicCardImageData
         }
       }
     }

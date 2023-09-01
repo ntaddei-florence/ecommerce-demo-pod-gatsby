@@ -17,7 +17,7 @@ export const AddToCart: FC<AddToCartProps> = ({ sku }) => {
   const [quantity, setQuantity] = useState(0);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 mt-2">
       <AvailabilityContainer skuCode={sku} getQuantity={setQuantity}>
         {quantity > 0 && <AvailabilityTemplate className="badge badge-success" />}
       </AvailabilityContainer>
