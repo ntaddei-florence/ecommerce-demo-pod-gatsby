@@ -1,14 +1,16 @@
-import React, { FC } from "react"
-import { HeadFC, PageProps, Link } from "gatsby"
+import React, { FC } from "react";
+import { PageProps } from "gatsby";
+import { useAuth0 } from "@auth0/auth0-react";
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 import { MainLayout } from "../components/layouts/main-layout";
 import { getCLToken } from "../components/commerce-layer/cl-token";
 
-export interface IndexPageContext {
+export interface AccountPageContext {
   slug: string;
 }
 
-export interface IndexPageProps
-  extends PageProps<Queries.CategoriesPageQuery, IndexPageContext, {}, { clToken: string }> {}
+export interface AccountPageProps
+  extends PageProps<Queries.CategoriesPageQuery, AccountPageContext, {}, { clToken: string }> {}
 
 export async function getServerData() {
   return {
@@ -20,17 +22,15 @@ export async function getServerData() {
   }
 }
 
-const IndexPage: FC<IndexPageProps> = ({ serverData: { clToken } }) => {
+const AccountPage: FC<AccountPageProps> = ({ serverData: { clToken } }) => {
+ const { user } = useAuth0();
   return (
     <MainLayout clToken={clToken}>
       <div className="p-8 flex flex-col gap-2">
-        <p><Link className="link" to="/account">Visit Your Account</Link></p>
-        <p><Link className="link" to="/categories">Go to categories</Link></p>
+        <pre>user: {JSON.stringify(user ?? null, null, 2)}</pre>
       </div>
     </MainLayout>
-  )
-}
+  );
+};
 
-export default IndexPage
-
-export const Head: HeadFC = () => <title>Home Page</title>
+export default withAuthenticationRequired(AccountPage);

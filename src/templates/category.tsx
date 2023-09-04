@@ -41,13 +41,8 @@ const CategoryPage: FC<CategoryPageProps> = ({ data: { contentfulCategory }, ser
 
 export const Head: FC<HeadProps<Queries.CategoryPageQuery, CategoryPageContext>> = ({
   data: { contentfulCategory },
-  // pageContext: { slug },
 }) => {
-  return (
-    <div>
-      {contentfulCategory?.categoryName}
-    </div>
-  );
+  return <title>{contentfulCategory?.categoryName}</title>;
 };
 
 export const query = graphql`

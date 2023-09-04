@@ -2,6 +2,7 @@ import { GatsbyNode } from "gatsby";
 import path from "path";
 
 import { SchemaGenerator } from "./graphql/SchemaGenerator";
+import { getVariantPath } from "./src/utils/paths";
 
 export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] = async ({
   actions,
@@ -42,6 +43,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions 
         nodes {
           slug
           variants {
+            slug
             sku
           }
         }
@@ -62,7 +64,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions 
   productPages.forEach((node) => {
     const { slug, variants } = node;
     variants?.forEach(v => {
-      const path = `/products/${slug}/${v?.sku}`;
+      const path = getVariantPath(node, v);
       console.info("Creating page for path", path);
       createPage({
         path,
@@ -74,7 +76,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions 
       });
       createRedirect({
         fromPath: `/products/${slug}`,
-        toPath: `/products/${slug}/${variants[0]?.sku}`,
+        toPath: getVariantPath(node, variants[0]),
       });
     });
   });

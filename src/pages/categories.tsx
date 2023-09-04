@@ -39,15 +39,8 @@ const CategoriesPage: FC<CategoriesPageProps> = ({ data: { allContentfulCategory
   );
 };
 
-export const Head: FC<HeadProps<Queries.CategoriesPageQuery, CategoriesPageContext>> = ({
-  // data: { allContentfulCategory },
-  // pageContext: { slug },
-}) => {
-  return (
-    <div>
-      Categories
-    </div>
-  );
+export const Head: FC<HeadProps<Queries.CategoriesPageQuery, CategoriesPageContext>> = () => {
+  return <title>Categories</title>;
 };
 
 export const query = graphql`

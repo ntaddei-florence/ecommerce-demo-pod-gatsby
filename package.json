@@ -1,15 +1,15 @@
 {
-  "name": "e-commerce-demo-pod",
+  "name": "ecommerce-demo-pod",
   "version": "1.0.0",
   "private": true,
-  "description": "e-commerce-demo-pod",
+  "description": "ecommerce-demo-pod",
   "author": "fabiofognani",
   "keywords": [
     "gatsby"
   ],
   "scripts": {
     "develop": "gatsby develop",
-    "start": "gatsby develop",
+    "start": "gatsby clean && gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
@@ -17,6 +17,7 @@
     "schema": "ts-node graphql/generate-schema.ts"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.1",
     "@heroicons/react": "^2.0.18",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.15",

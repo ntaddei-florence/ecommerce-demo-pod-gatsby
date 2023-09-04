@@ -5,6 +5,7 @@ import { AddToCart } from "../components/commerce-layer/add-to-cart";
 import { MainLayout } from "../components/layouts/main-layout";
 import { getCLToken } from "../components/commerce-layer/cl-token";
 import { MediaCarousel } from "../components/media-carousel";
+import { getVariantPath } from "../utils/paths";
 
 export interface ProductPageContext {
   slug: string;
@@ -46,7 +47,7 @@ const ProductPage: FC<ProductPageProps> = ({
   );
 
   const getLinkToVariant = (v: Queries.VariantDataFragment) => {
-    return `/products/${product?.slug}/${v.sku}`;
+    return product ? getVariantPath(product, v) : undefined;
   };
 
   const getLinkToVariantForColor = (color: string) => {
@@ -139,13 +140,8 @@ const ProductPage: FC<ProductPageProps> = ({
 
 export const Head: FC<HeadProps<Queries.ProductPageQuery, ProductPageContext>> = ({
   data: { contentfulProduct },
-  // pageContext: { slug },
 }) => {
-  return (
-    <div>
-      {contentfulProduct?.name}
-    </div>
-  );
+  return <title>{contentfulProduct?.name}</title>;
 };
 
 export const query = graphql`
@@ -169,6 +165,7 @@ export const query = graphql`
 
   fragment VariantData on ContentfulVariant {
     sku
+    slug
     size {
       label
     }
