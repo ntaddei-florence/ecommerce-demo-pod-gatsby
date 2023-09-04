@@ -12,7 +12,7 @@ const onRedirectCallback = (appState) => {
   navigate(appState?.returnTo || '/', { replace: true });
 };
 
-export const wrapRootElement = (props) => {
+export const wrapPageElement = (props) => {
   return (
     props?.pageResources?.page?.path?.match("dev-404-page") ? (
     props.element
