@@ -2,8 +2,6 @@ import {
   AddToCartButton,
   AvailabilityContainer,
   AvailabilityTemplate,
-  LineItemsContainer,
-  LineItemsCount,
   Price,
   PricesContainer,
 } from "@commercelayer/react-components";
