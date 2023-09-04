@@ -5,4 +5,5 @@ src/gatsby-types.d.ts
 
 .env.*
 
+src/graphql/types
 graphql/generated
