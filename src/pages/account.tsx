@@ -30,7 +30,7 @@ const AccountPage: FC<AccountPageProps> = ({ serverData: { clToken } }) => {
         <pre>user: {JSON.stringify(user ?? null, null, 2)}</pre>
       </div>
     </MainLayout>
- );
+  );
 };
 
 export default withAuthenticationRequired(AccountPage);
