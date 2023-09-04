@@ -1,0 +1,45 @@
+query GetCartContentfulProducts($sku_list: [String]) {
+  variantCollection(where: { sku_in: $sku_list }) {
+    items {
+      sku
+      name
+      size {
+        label
+      }
+      color {
+        colorName
+        colorCode
+      }
+      media {
+        mediaCollection(limit: 1) {
+          items {
+            url
+          }
+        }
+      }
+      linkedFrom {
+        productCollection(limit: 1) {
+          items {
+            name
+            slug
+            defaultMedia {
+              mediaCollection(limit: 1) {
+                items {
+                  url
+                }
+              }
+            }
+            category {
+              slug
+              categoryName
+            }
+            brand {
+              slug
+              brandName
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,18 +1,21 @@
 import { GetServerData, graphql, HeadProps, PageProps, Link } from "gatsby";
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import React, { FC } from "react";
+
 import { AddToCart } from "../components/commerce-layer/add-to-cart";
-import { MainLayout } from "../components/layouts/main-layout";
 import { getCLToken } from "../components/commerce-layer/cl-token";
 import { MediaCarousel } from "../components/media-carousel";
 import { getVariantPath } from "../utils/paths";
+import { MainLayout } from "../components/layouts/main-layout";
 
 export interface ProductPageContext {
   slug: string;
   sku: string;
 }
 
-interface ServerDataProps { clToken: string };
+interface ServerDataProps {
+  clToken: string;
+}
 
 export interface ProductPageProps
   extends PageProps<Queries.ProductPageQuery, ProductPageContext, {}, ServerDataProps> {}
@@ -24,8 +27,8 @@ export const getServerData: GetServerData<ServerDataProps> = async () => {
       clToken: (await getCLToken()).accessToken,
     }, // Will be passed to the page component as "serverData" prop
     headers: {}, // HTTP response headers for this page
-  }
-}
+  };
+};
 
 const ProductPage: FC<ProductPageProps> = ({
   data: { contentfulProduct: product },
@@ -50,8 +53,8 @@ const ProductPage: FC<ProductPageProps> = ({
     return product ? getVariantPath(product, v) : undefined;
   };
 
-  const getLinkToVariantForColor = (color: string) => {
-    const variantsForColor = allVariants?.filter((v) => color === v?.color);
+  const getLinkToVariantForColor = (colorCode: string) => {
+    const variantsForColor = allVariants?.filter((v) => colorCode === v?.color?.colorCode);
     const variantSameSize = variantsForColor?.find((v) => {
       return v?.size?.label === variant?.size?.label;
     });
@@ -63,7 +66,7 @@ const ProductPage: FC<ProductPageProps> = ({
 
   const getLinkToVariantForSize = (size: string) => {
     const variantForSize = allVariants?.find(
-      (v) => v?.color === variant?.color && size === v?.size?.label
+      (v) => v?.color?.colorCode === variant?.color?.colorCode && size === v?.size?.label
     );
     if (variantForSize) {
       return getLinkToVariant(variantForSize);
@@ -74,7 +77,7 @@ const ProductPage: FC<ProductPageProps> = ({
     return (
       (
         allVariants?.filter((v) => {
-          return v?.color === variant?.color && size === v?.size?.label;
+          return v?.color?.colorCode === variant?.color?.colorCode && size === v?.size?.label;
         }) ?? []
       ).length > 0
     );
@@ -97,11 +100,12 @@ const ProductPage: FC<ProductPageProps> = ({
             <h3>Colors:</h3>
             <div className="flex gap-2">
               {availableColors.filter(Boolean).map((color) => (
-                <Link to={getLinkToVariantForColor(color!) ?? "#"} key={color}>
+                <Link to={getLinkToVariantForColor(color!.colorCode!) ?? "#"} key={color?.colorCode}>
                   <button
-                    style={{ backgroundColor: color ?? undefined }}
+                    title={color?.colorName ?? ''}
+                    style={{ backgroundColor: color?.colorCode ?? undefined }}
                     className={`btn btn-sm rounded-md border border-4 w-6 h-6 ${
-                      variant?.color === color ? "border-accent" : ""
+                      variant?.color?.colorCode === color?.colorCode ? "border-accent" : ""
                     }`}
                   />
                 </Link>
@@ -169,7 +173,10 @@ export const query = graphql`
     size {
       label
     }
-    color
+    color {
+      colorCode
+      colorName
+    }
     media {
       media {
         ...MediaCarouselImageData

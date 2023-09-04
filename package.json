@@ -8,7 +8,10 @@
     "gatsby"
   ],
   "scripts": {
+    "codegen": "graphql-codegen --config src/graphql/codegen.ts",
+    "predevelop": "npm run codegen",
     "develop": "gatsby develop",
+    "prestart": "npm run codegen",
     "start": "gatsby clean && gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
@@ -17,8 +20,8 @@
     "schema": "ts-node graphql/generate-schema.ts"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.2.1",
     "@apollo/client": "^3.8.1",
+    "@auth0/auth0-react": "^2.2.1",
     "@commercelayer/js-auth": "^4.1.1",
     "@commercelayer/react-components": "^4.4.4",
     "@commercelayer/sdk": "^5.12.5",
@@ -44,12 +47,17 @@
     "tailwindcss": "^3.3.3"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-codegen/introspection": "^4.0.0",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/node": "^20.3.3",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "daisyui": "^3.6.4",
     "eslint-config-react-app": "^7.0.1",
+    "graphql-codegen": "^0.4.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   }
