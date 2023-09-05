@@ -1,9 +1,8 @@
 import React, { useCallback } from "react";
-import { LogoutOptions, useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export function LogoutButton() {
  const {
-    isAuthenticated,
     logout,
   } = useAuth0();
 
@@ -13,7 +12,7 @@ export function LogoutButton() {
         returnTo: window.location.origin
       },
     });
-  }, []);
+  }, [logout]);
 
   return (
     <button className="btn btn-sm w-full" onClick={onClickLogout}>Log out</button>
